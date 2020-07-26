@@ -28,6 +28,13 @@ import * as puppeteer from 'puppeteer';
     const area =
       (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
     console.dir(area.trim());
+
+    // 画像blob
+    const image = await element.screenshot({
+      encoding: 'base64',
+      type: 'jpeg',
+      quality: 60,
+    });
   }
 
   await browser.close();

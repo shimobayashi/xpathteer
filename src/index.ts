@@ -14,8 +14,8 @@ import * as puppeteer from 'puppeteer';
     const anchor = await element.$('a');
     if (!anchor) continue;
 
-    const url = (await (await anchor.getProperty('href')).jsonValue()) + '';
-    console.log(url);
+    const link = (await (await anchor.getProperty('href')).jsonValue()) + '';
+    console.log(link);
   }
 
   await browser.close();

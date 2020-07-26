@@ -1,24 +1,13 @@
-console.log('Try npm run check/fix!');
+import * as puppeteer from 'puppeteer';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
-
-const trailing = 'Semicolon';
-
-const why = 'am I tabbed?';
-
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
-}
-// TODO: more examples
+(async () => {
+  const browser = await puppeteer.launch({
+    headless: false,
+    slowMo: 0,
+  });
+  const page = await browser.newPage();
+  await page.goto('https://anglers.jp/');
+})().catch(error => {
+  console.error(error);
+  throw error;
+});

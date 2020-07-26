@@ -11,11 +11,23 @@ import * as puppeteer from 'puppeteer';
   await page.waitForSelector('div.col-6');
   const elements = await page.$$('div.col-6');
   for (const element of elements) {
+    // リンク
     const anchor = await element.$('a');
-    if (!anchor) continue;
-
-    const link = (await (await anchor.getProperty('href')).jsonValue()) + '';
+    const link = (await (await anchor!.getProperty('href')).jsonValue()) + '';
     console.log(link);
+
+    // タイトル
+    const detail1 = await element.$(
+      '.card-body > div:nth-child(3) > div:nth-child(1)'
+    );
+    const fish =
+      (await (await detail1!.getProperty('innerText')).jsonValue()) + '';
+    console.dir(fish.trim());
+
+    const detail2 = await element.$('.card-body > div:nth-child(4)');
+    const area =
+      (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
+    console.dir(area.trim());
   }
 
   await browser.close();

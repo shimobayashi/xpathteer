@@ -3,7 +3,7 @@ import axios from 'axios';
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     slowMo: 0,
   });
   const page = await browser.newPage();

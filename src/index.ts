@@ -75,7 +75,9 @@ import axios from 'axios';
   await browser.close();
 })().catch(error => {
   console.error(error.message);
-  throw error;
+  // --unhandled-rejections=strict ってやつを使えば throw error; でもうまくいきそうだけど、面倒なので雑にprocess.exit(1); する
+  // eslint-disable-next-line no-process-exit
+  process.exit(1);
 });
 
 interface Params {

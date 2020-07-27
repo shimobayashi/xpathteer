@@ -8,44 +8,68 @@ import axios from 'axios';
   });
   const page = await browser.newPage();
 
-  await page.goto('https://anglers.jp/prefectures/28/catches');
-  await page.waitForSelector('div.col-6');
-  const elements = await page.$$('div.col-6');
-  for (const element of elements) {
-    // リンク
-    const anchor = await element.$('a');
-    const link = (await (await anchor!.getProperty('href')).jsonValue()) + '';
+  const targets = [
+    {
+      prefecture: '神奈川県',
+      url: 'https://anglers.jp/prefectures/14/catches',
+    },
+    {
+      prefecture: '福井県',
+      url: 'https://anglers.jp/prefectures/18/catches',
+    },
+    {
+      prefecture: '京都府',
+      url: 'https://anglers.jp/prefectures/26/catches',
+    },
+    {
+      prefecture: '大阪府',
+      url: 'https://anglers.jp/prefectures/27/catches',
+    },
+    {
+      prefecture: '兵庫県',
+      url: 'https://anglers.jp/prefectures/28/catches',
+    },
+  ];
+  for (const target of targets) {
+    await page.goto(target.url);
+    await page.waitForSelector('div.col-6');
+    const elements = await page.$$('div.col-6');
+    for (const element of elements) {
+      // リンク
+      const anchor = await element.$('a');
+      const link = (await (await anchor!.getProperty('href')).jsonValue()) + '';
 
-    // タイトルとタグ
-    const detail1 = await element.$(
-      '.card-body > div:nth-child(3) > div:nth-child(1)'
-    );
-    let fish =
-      (await (await detail1!.getProperty('innerText')).jsonValue()) + '';
-    fish = fish.trim();
+      // タイトルとタグ
+      const detail1 = await element.$(
+        '.card-body > div:nth-child(3) > div:nth-child(1)'
+      );
+      let fish =
+        (await (await detail1!.getProperty('innerText')).jsonValue()) + '';
+      fish = fish.trim();
 
-    const detail2 = await element.$('.card-body > div:nth-child(4)');
-    let area =
-      (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
-    area = area.trim();
+      const detail2 = await element.$('.card-body > div:nth-child(4)');
+      let area =
+        (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
+      area = area.trim();
 
-    const title = area + ' - ' + fish;
-    const tags = ['釣果情報', '兵庫県', area, fish];
+      const title = area + ' - ' + fish;
+      const tags = ['釣果情報', target.prefecture, area, fish];
 
-    // 画像blob
-    const image = await element.screenshot({
-      encoding: 'base64',
-      type: 'jpeg',
-      quality: 60,
-    });
+      // 画像blob
+      const image = await element.screenshot({
+        encoding: 'base64',
+        type: 'jpeg',
+        quality: 60,
+      });
 
-    await postToVimagemore({
-      id: link,
-      title: title,
-      tags: tags,
-      link: link,
-      image: image,
-    });
+      await postToVimagemore({
+        id: link,
+        title: title,
+        tags: tags,
+        link: link,
+        image: image,
+      });
+    }
   }
 
   await browser.close();

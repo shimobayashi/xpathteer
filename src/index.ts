@@ -74,7 +74,7 @@ import axios from 'axios';
 
   await browser.close();
 })().catch(error => {
-  console.error(error);
+  console.error(error.message);
   throw error;
 });
 

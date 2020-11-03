@@ -12,23 +12,7 @@ import axios from 'axios';
     {
       prefecture: '神奈川県',
       url: 'https://anglers.jp/prefectures/14/catches',
-    },
-    {
-      prefecture: '福井県',
-      url: 'https://anglers.jp/prefectures/18/catches',
-    },
-    {
-      prefecture: '京都府',
-      url: 'https://anglers.jp/prefectures/26/catches',
-    },
-    {
-      prefecture: '大阪府',
-      url: 'https://anglers.jp/prefectures/27/catches',
-    },
-    {
-      prefecture: '兵庫県',
-      url: 'https://anglers.jp/prefectures/28/catches',
-    },
+    }
   ];
   for (const target of targets) {
     await page.goto(target.url);

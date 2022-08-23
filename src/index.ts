@@ -20,7 +20,7 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     await page.waitForSelector('div.col-6');
     const lastPosition = await scrollPageToBottom(page, {
       size: 600,
-      delay: 100,
+      delay: 1000,
       stepsLimit: 5
     });
     const elements = await page.$$('div.col-6');

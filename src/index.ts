@@ -1,5 +1,6 @@
 import * as puppeteer from 'puppeteer';
 import axios from 'axios';
+import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -17,6 +18,11 @@ import axios from 'axios';
   for (const target of targets) {
     await page.goto(target.url);
     await page.waitForSelector('div.col-6');
+    const lastPosition = await scrollPageToBottom(page, {
+      size: 600,
+      delay: 100,
+      stepsLimit: 5
+    });
     const elements = await page.$$('div.col-6');
     for (const element of elements) {
       // リンク

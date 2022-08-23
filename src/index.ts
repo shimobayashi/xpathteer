@@ -31,7 +31,7 @@ import axios from 'axios';
         (await (await detail1!.getProperty('innerText')).jsonValue()) + '';
       fish = fish.trim();
 
-      const detail2 = await element.$('.card-body > div:nth-child(4)');
+      const detail2 = await element.$('.card-body > div:nth-child(2)');
       let area =
         (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
       area = area.trim();

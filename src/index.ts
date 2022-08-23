@@ -25,7 +25,7 @@ import axios from 'axios';
 
       // タイトルとタグ
       const detail1 = await element.$(
-        '.card-body > div:nth-child(3) > div:nth-child(1)'
+        '.card-body > div:nth-child(1) > div:nth-child(1)'
       );
       let fish =
         (await (await detail1!.getProperty('innerText')).jsonValue()) + '';

@@ -25,13 +25,13 @@ import axios from 'axios';
 
       // タイトルとタグ
       const detail1 = await element.$(
-        '.card-body > div:nth-child(3) > div:nth-child(1)'
+        '.card-body > div:nth-child(1) > div:nth-child(1)'
       );
       let fish =
         (await (await detail1!.getProperty('innerText')).jsonValue()) + '';
       fish = fish.trim();
 
-      const detail2 = await element.$('.card-body > div:nth-child(4)');
+      const detail2 = await element.$('.card-body > div:nth-child(2)');
       let area =
         (await (await detail2!.getProperty('innerText')).jsonValue()) + '';
       area = area.trim();

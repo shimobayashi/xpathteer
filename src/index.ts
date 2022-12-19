@@ -21,6 +21,8 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     }
   ];
   for (const target of targets) {
+    console.debug(target.url);
+
     await page.goto(target.url);
 
     console.debug(await page.content());

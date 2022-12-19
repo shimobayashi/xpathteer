@@ -6,6 +6,7 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
   const browser = await puppeteer.launch({
     headless: true,
     slowMo: 0,
+    executablePath: process.env['PUPPETEER_EXECUTABLE_PATH'],
   });
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(60000);

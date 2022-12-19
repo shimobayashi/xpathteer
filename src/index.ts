@@ -1,6 +1,6 @@
 import * as puppeteer from 'puppeteer';
 import axios from 'axios';
-import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
+import {scrollPageToBottom} from 'puppeteer-autoscroll-down';
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -18,7 +18,7 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     {
       prefecture: '神奈川県',
       url: 'https://anglers.jp/prefectures/14/catches',
-    }
+    },
   ];
   for (const target of targets) {
     console.debug(target.url);
@@ -28,10 +28,10 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     console.debug(await page.content());
 
     await page.waitForSelector('div.col-6');
-    const lastPosition = await scrollPageToBottom(page, {
+    await scrollPageToBottom(page, {
       size: 600,
       delay: 1000,
-      stepsLimit: 5
+      stepsLimit: 5,
     });
     const elements = await page.$$('div.col-6');
     for (const element of elements) {

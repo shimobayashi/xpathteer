@@ -1,12 +1,13 @@
 import * as puppeteer from 'puppeteer-core';
 import axios from 'axios';
 import {scrollPageToBottom} from 'puppeteer-autoscroll-down';
+import {executablePath} from 'puppeteer';
 
 (async () => {
   const browser = await puppeteer.launch({
     headless: true,
     slowMo: 0,
-    executablePath: process.env['PUPPETEER_EXECUTABLE_PATH'],
+    executablePath: process.env['PUPPETEER_EXECUTABLE_PATH'] || executablePath(),
   });
   const page = await browser.newPage();
   page.on('response', response => {

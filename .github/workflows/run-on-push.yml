@@ -27,3 +27,4 @@ jobs:
       env:
         VIMAGEMORE_UPLOADER_URL: ${{ secrets.VIMAGEMORE_UPLOADER_URL }}
         CI: 1
+        DEBUG: 1 # push時は常にデバッグログを出力する

@@ -3,6 +3,8 @@ import axios from 'axios';
 import {scrollPageToBottom} from 'puppeteer-autoscroll-down';
 import {executablePath} from 'puppeteer';
 
+const isDebug = process.env['DEBUG'] != undefined;
+
 (async () => {
   const browser = await puppeteer.launch({
     headless: true,
@@ -11,7 +13,9 @@ import {executablePath} from 'puppeteer';
   });
   const page = await browser.newPage();
   page.on('response', response => {
-    console.debug(response.status(), response.url());
+    if (isDebug) {
+      console.debug(response.status(), response.url());
+    }
   });
   await page.setDefaultNavigationTimeout(60000);
 
@@ -22,11 +26,15 @@ import {executablePath} from 'puppeteer';
     },
   ];
   for (const target of targets) {
-    console.debug(target.url);
+    if (isDebug) {
+      console.debug(target.url);
+    }
 
     await page.goto(target.url);
 
-    console.debug(await page.content());
+    if (isDebug) {
+      console.debug(await page.content());
+    }
 
     await page.waitForSelector('div.col-6');
     await scrollPageToBottom(page, {

@@ -1,4 +1,4 @@
-import * as puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer-core';
 import axios from 'axios';
 import {scrollPageToBottom} from 'puppeteer-autoscroll-down';
 
@@ -56,11 +56,17 @@ import {scrollPageToBottom} from 'puppeteer-autoscroll-down';
       const tags = ['釣果情報', target.prefecture, area, fish];
 
       // 画像blob
-      const image = await element.screenshot({
+      const imageBuffer = await element.screenshot({
         encoding: 'base64',
         type: 'jpeg',
         quality: 60,
       });
+      let image:string;
+      if (imageBuffer instanceof Buffer) {
+        image = imageBuffer.toString();
+      } else {
+        image = imageBuffer;
+      }
 
       await postToVimagemore({
         id: link,

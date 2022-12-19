@@ -64,6 +64,9 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     }
   }
 
+  console.log('page.content:');
+  console.log(await page.content());
+
   await browser.close();
 })().catch(error => {
   console.error(error.message);

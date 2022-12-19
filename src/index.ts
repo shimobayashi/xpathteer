@@ -9,6 +9,9 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
     executablePath: process.env['PUPPETEER_EXECUTABLE_PATH'],
   });
   const page = await browser.newPage();
+  page.on('response', response => {
+    console.debug(response.status(), response.url());
+  });
   await page.setDefaultNavigationTimeout(60000);
 
   const targets = [
@@ -19,6 +22,9 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
   ];
   for (const target of targets) {
     await page.goto(target.url);
+
+    console.debug(await page.content());
+
     await page.waitForSelector('div.col-6');
     const lastPosition = await scrollPageToBottom(page, {
       size: 600,
@@ -63,9 +69,6 @@ import { scrollPageToBottom } from 'puppeteer-autoscroll-down';
       });
     }
   }
-
-  console.log('page.content:');
-  console.log(await page.content());
 
   await browser.close();
 })().catch(error => {

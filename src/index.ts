@@ -40,7 +40,7 @@ const isDebug = process.env['DEBUG'] != undefined;
     await scrollPageToBottom(page, {
       size: 600,
       delay: 1000,
-      stepsLimit: 5,
+      stepsLimit: 20,
     });
     const elements = await page.$$('div.col-6');
     for (const element of elements) {
